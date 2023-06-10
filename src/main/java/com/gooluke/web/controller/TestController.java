@@ -1,5 +1,6 @@
 package com.gooluke.web.controller;
 
+import com.gooluke.common.utils.CoreDateUtils;
 import com.gooluke.common.utils.CoreHttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,16 @@ public class TestController {
     @Autowired
     private CoreHttpUtils httpUtils;
 
+    @Autowired
+    private CoreDateUtils dateUtils;
+
     @RequestMapping("/http")
     public Object testHttp() {
         return httpUtils.getForObject("http://localhost:1702/gooluke-admin/test/http",null,String.class);
+    }
+
+    @RequestMapping("/date")
+    public void testDateUtil(String date ,String format) {
+        dateUtils.String2date(date,format);
     }
 }
