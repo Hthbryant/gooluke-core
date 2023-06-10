@@ -9,9 +9,9 @@ package com.gooluke.common.enums;
  */
 public enum ErrorStatus {
 
-    SUCCESS("0",""),
-    SYSTEM_ERROR("10000001","系统异常"),
-    WRONG_PARAM("10000002","参数错误"),
+    SUCCESS("0","success"),
+    SYSTEM_ERROR("17010001","系统异常"),
+    WRONG_PARAM("17010002","参数错误"),
     ;
 
     private String errCode;
