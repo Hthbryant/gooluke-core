@@ -46,12 +46,12 @@ public class CoreHttpUtils {
         logger.info("---initHeader finish...---");
     }
 
-    public Object postForObject (String url,String request,Class<?> clazz) {
+    public <T> T postForObject (String url,String request,Class<T> clazz) {
         HttpEntity<String> entity = new HttpEntity<>(request,header);
         return restTemplate.postForObject(url,entity,clazz);
     }
 
-    public Object getForObject (String url,String request,Class<?> clazz) {
+    public <T> T getForObject (String url,String request,Class<T> clazz) {
         HttpEntity<String> entity = new HttpEntity<>(request,header);
         return restTemplate.getForObject(url,clazz,entity);
     }
