@@ -18,7 +18,9 @@ public class FileController {
 
     @RequestMapping("/get")
     public BaseResponseDTO<FileData> getFile(String name) {
-        return new BaseResponseDTO<>(new FileData("id-" + name, name));
+        return new BaseResponseDTO<>(new FileData("id"+name,name));
     }
+
+
 
 }
