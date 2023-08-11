@@ -1,5 +1,6 @@
 package com.gooluke.biz.entity;
 
+import com.gooluke.common.dto.PageInfo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,5 +19,7 @@ public class Player implements Serializable {
     private String name;
     private Integer age;
     private String phone;
+
+    private PageInfo page;
 
 }
