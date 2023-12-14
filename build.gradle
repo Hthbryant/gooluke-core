@@ -54,7 +54,7 @@ dependencies {
 }
 
 bootRun{
-    main="com.gooluke.biz.server.GoolukeCoreStartServer"
+    main="com.gooluke.core.server.GoolukeCoreStartServer"
     jvmArgs = [
             "-Dspring.config.location=classpath:application.properties"
     ]
