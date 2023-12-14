@@ -25,7 +25,7 @@ public class TestController {
 
     @RequestMapping("/http")
     public Object testHttp() {
-        return httpUtils.getForObject("http://localhost:1702/gooluke-admin/test/http",null,String.class);
+        return httpUtils.getForObject("http://localhost:1702/gooluke-core/test/http",null,String.class);
     }
 
     @RequestMapping("/date")

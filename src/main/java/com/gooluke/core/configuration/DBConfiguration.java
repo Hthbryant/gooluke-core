@@ -25,42 +25,32 @@ public class DBConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(DBConfiguration.class);
 
-    @Value("${jdbc.datasource.driverClassName}")
-    private String jdbcDriveClassName;
-
-    @Value("${jdbc.datasource.url}")
-    private String jdbcUrl;
-
-    @Value("${jdbc.datasource.password}")
-    private String jdbcPassword;
-
-    @Value("${jdbc.datasource.username}")
-    private String jdbcUsername;
-
     @Bean("dataSource")
-    public DataSource dataSource() {
+    public DataSource dataSource(@Value("${jdbc.datasource.driverClassName}") String driverClassName,
+                                 @Value("${jdbc.datasource.url}") String url,
+                                 @Value("${jdbc.datasource.username}") String username,
+                                 @Value("${jdbc.datasource.password}") String password
+    ) {
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setDriverClassName(jdbcDriveClassName);
-        druidDataSource.setUrl(jdbcUrl);
-        druidDataSource.setUsername(jdbcUsername);
-        druidDataSource.setPassword(jdbcPassword);
+        druidDataSource.setDriverClassName(driverClassName);
+        druidDataSource.setUrl(url);
+        druidDataSource.setUsername(username);
+        druidDataSource.setPassword(password);
         return druidDataSource;
     }
-
     @Bean("sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory() {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) {
         try {
-            SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
-            factory.setDataSource(dataSource());
-            /*DefaultResourceLoader defaultResourceLoader = new DefaultResourceLoader();
-            Resource resource = defaultResourceLoader.getResource("classpath:mybatis-config.xml");
-            factory.setConfigLocation(resource);*/
+            SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+            sqlSessionFactoryBean.setDataSource(dataSource);
             PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
             Resource[] resources = resolver.getResources("classpath:/mapper/*.xml");
-            factory.setMapperLocations(resources);
-            return factory.getObject();
+            Resource config = resolver.getResource("classpath:mybatis-config.xml");
+            sqlSessionFactoryBean.setMapperLocations(resources);
+            sqlSessionFactoryBean.setConfigLocation(config);
+            return sqlSessionFactoryBean.getObject();
         } catch (Exception e) {
-            logger.error("create sqlSessionFactoryBean error",e);
+            logger.error("create sqlSessionFactoryBean error", e);
             throw new RuntimeException("create sqlSessionFactoryBean error");
         }
     }

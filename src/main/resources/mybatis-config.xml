@@ -1,0 +1,15 @@
+<!-- mybatis-config.xml -->
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- 自定义插件配置 -->
+    <plugins>
+        <plugin interceptor="io.github.hthbryant.gooluke.framework.biz.interceptor.GoolukePaginationInterceptor">
+            <!-- 这里可以配置一些插件的属性 -->
+        </plugin>
+    </plugins>
+
+</configuration>

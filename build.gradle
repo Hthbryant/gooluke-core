@@ -28,7 +28,8 @@ List common = [
         'com.alibaba:fastjson:1.2.75',
         'org.apache.httpcomponents:httpclient:4.5.13',
         'com.alibaba:easyexcel:3.1.1',
-        'org.apache.commons:commons-lang3:3.12.0'
+        'org.apache.commons:commons-lang3:3.12.0',
+        'redis.clients:jedis:3.7.0'
 ]
 
 //自定义声明变量 def xxxx = "2.1.1"
@@ -39,6 +40,8 @@ List spring = [
         "org.springframework.boot:spring-boot-starter-web:$springboot_version",
         "org.springframework.boot:spring-boot-starter-aop:$springboot_version",
         'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2',
+        //整合log4j2
+        'org.springframework.boot:spring-boot-starter-log4j2:2.5.4'
 ]
 
 List gooluke_sdk = [
@@ -51,6 +54,11 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+configurations.all {
+    //去除springboot的默认依赖logging
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
 
 bootRun{
