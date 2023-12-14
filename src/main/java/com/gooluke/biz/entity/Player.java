@@ -1,9 +1,7 @@
 package com.gooluke.biz.entity;
 
-import com.gooluke.common.dto.PageInfo;
+import io.github.hthbryant.gooluke.framework.biz.common.dto.PageInfo;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @author 咕噜科
@@ -13,7 +11,7 @@ import java.io.Serializable;
  * version 1.0
  */
 @Data
-public class Player implements Serializable {
+public class Player {
 
     private Integer id;
     private String name;

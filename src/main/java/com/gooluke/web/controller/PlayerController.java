@@ -1,16 +1,16 @@
 package com.gooluke.web.controller;
 
-import com.gooluke.biz.entity.Player;
-import com.gooluke.biz.integration.dao.PlayerDAO;
-import com.gooluke.common.dto.PageInfo;
-import com.gooluke.common.tool.JsonMapper;
+import com.gooluke.biz.service.PlayerService;
+import com.gooluke.common.dto.palyer.PlayerRequestDTO;
+import io.github.hthbryant.gooluke.framework.biz.common.dto.BaseResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author 咕噜科
@@ -22,18 +22,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/player")
 @Slf4j
-public class PlayerController {
-
-    private static final JsonMapper JSON_MAPPER = JsonMapper.nonDefaultMapper();
+public class PlayerController extends BaseController {
 
     @Autowired
-    private PlayerDAO playerDAO;
+    private PlayerService playerService;
+
     @RequestMapping("/list")
-    public List<Player> selectPlayerList (@RequestBody Player player, int currentPage, int pageSize) {
-        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
-        player.setPage(pageInfo);
-        log.info("selectPlayerList request:{}",JSON_MAPPER.toJson(player));
-        return playerDAO.selectPlayerList(player);
+    public BaseResponseDTO getPlayerList(HttpServletRequest httpServletRequest,
+                                         HttpServletResponse httpServletResponse,
+                                         @RequestBody PlayerRequestDTO requestDTO) {
+        return doExecute(httpServletRequest, httpServletResponse, defaultTimeout, requestDTO, (request -> {
+            return playerService.getPlayerList(request);
+        }), timeoutResponse, exceptionResponse);
     }
 
 }

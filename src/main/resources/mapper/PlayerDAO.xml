@@ -16,9 +16,6 @@
 
     <select id="selectPlayerList" parameterType="com.gooluke.biz.entity.Player" resultMap="BaseResultMap">
         select * from t_player order by id
-        <if test="page != null">
-            limit ${(page.currentPage -1) * page.pageSize}, #{page.pageSize}
-        </if>
     </select>
 
 </mapper>
